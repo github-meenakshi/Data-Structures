@@ -1,0 +1,120 @@
+#include <iostream>
+using namespace std;
+
+class Node{
+public:
+int data;
+Node* next;
+
+Node(int x){
+this->data = x;
+this->next = NULL;
+}
+};
+Node* takeInput(){
+int x;
+cin>>x;
+Node *head=NULL;
+Node *temp;
+while(x!=-1){
+Node* newNode = new Node(x);
+if(head == NULL){
+head = newNode;
+temp = newNode;
+}
+else{
+temp->next = newNode;
+temp = temp->next;
+}
+cin>>x;
+}
+return head;
+}
+void Display(Node* head){
+while(head!=NULL){
+cout<<head->data<<" ";
+head = head->next;
+}
+cout<<endl;
+}
+
+void Insert(int x,int indii,Node* head){
+int count = 1;
+Node*temp = head;
+Node* newNode = new Node(x);
+while(count<indii){
+temp = temp->next;
+count++;
+}
+newNode->next = temp->next;
+temp->next = newNode;
+}
+
+void Delete(int indii,Node* head){
+Node*temp = head;
+int curr = 1;
+while(curr<indii){
+curr++;
+temp = temp->next;
+}
+Node* prev = temp->next;
+temp->next = prev->next;
+}
+
+int Length(Node* head,int count){
+if(head == NULL) return 0;
+return 1+Length(head->next,count++);
+}
+
+void InsertRecur(int x,int indii,Node* head,int curr){
+if(head == NULL) return;
+if(curr == indii-1){
+Node* newNode = new Node(x);
+newNode->next = head->next;
+head->next = newNode;
+return;
+}
+else InsertRecur(x,indii,head->next,curr+1);
+}
+
+void DeleteRecur(int indii,Node* head,int curr){
+if(head==NULL) return;
+if(curr == indii-1){
+Node* prev=head->next;
+head->next = prev->next;
+}
+else DeleteRecur(indii,head->next,curr+1);
+}
+
+int Check_x(int x,Node* head){
+int curr = 0;
+while(head!=NULL){
+if(head->data == x){
+    break;
+    }
+    else curr = curr+1;
+    head = head->next;
+}
+if(head == NULL) return -1;
+else return curr;
+}
+int main(){
+Node* head = takeInput();
+Display(head);
+Insert(100,0,head);
+Display(head);
+Delete(1,head);
+Display(head);
+cout<<Length(head,0)<<endl;
+InsertRecur(100,2,head,0);
+Display(head);
+DeleteRecur(3,head,0);
+Display(head);
+cout<<"What element you want to check in the Linked List"<<endl;
+int x;
+cin>>x;
+int ans = Check_x(x,head);
+if(ans == -1) cout<<"ELEMENT NOT FOUND"<<endl;
+else cout<<"Element found at : "<<ans<<endl;
+return 0;
+}
