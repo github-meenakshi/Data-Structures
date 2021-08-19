@@ -135,13 +135,67 @@ public:
                         cout<<head->data<<" ";
                         }
                         
-                        bool checkPalindrome(Node* head){
-                            
+                        int checkMid(Node*head){
+                            Node* slow=head;
+                            Node* fast = head->next;
+                            while(fast!=NULL){
+                                if(fast->next != NULL) fast = fast->next->next;
+                                else if(fast->next == NULL) break;
+                                slow = slow->next;
+                                }
+                                int ans = slow->data;
+                                return ans;
                             }
+                            
+                            Node* mergeLL(Node* h1,Node* h2){
+                                Node* head=NULL;
+                                Node* temp;
+                                while(h1 != NULL && h2 != NULL){
+                                    Node* newNode;
+                                    if(h1->data<=h2->data){
+                                        newNode = new Node(h1->data);
+                                        h1 = h1->next;
+                                        }
+                                        else{
+                                            newNode = new Node(h2->data);
+                                            h2 = h2->next;
+                                            }
+                                            if(head == NULL){
+                                                head = newNode;
+                                                temp = newNode;
+                                                }
+                                                else{
+                                                    temp->next = newNode;
+                                                    temp = temp->next;
+                                                    }
+                                    }
+                                    while(h1 != NULL){
+                                        Node* newNode = new Node(h1->data);
+                                        temp->next = newNode;
+                                        temp = temp->next;
+                                        h1 = h1->next;
+                                        }
+                                        while(h2 != NULL){
+                                        Node* newNode = new Node(h2->data);
+                                        temp->next = newNode;
+                                        temp = temp->next;
+                                        h2 = h2->next;
+                                        }
+                                        return head;
+                                }
+                                
+                                Node* mergeSort(Node* h){
+                                    
+                                    }
     int main(){
-        Node* head = takeInput();
-        checkPalindrome(head);
-        Display(head);
+        Node* h = takeInput();
+        Node* head = mergeSort(h);
+//        Node* h2 = takeInput();
+//        Node *head = mergeLL(h1,h2);
+//        Display(head);
+//        int ans = checkMid(head);
+//        cout<<ans<<endl;
+//        checkPalindrome(head);
 //        removeDupli(head);
 //        reverseLL(head);
 //        cout<<endl;
