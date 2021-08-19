@@ -3,193 +3,193 @@ using namespace std;
 
 class Node{
 public:
-    int data;
-    Node* next;
-    
-    Node(int x){
-        this->data = x;
-        this->next = NULL;
-        }
-    };
-    Node* takeInput(){
-        int x;
-        cin>>x;
-        Node *head=NULL;
-        Node *temp;
-        while(x!=-1){
-            Node* newNode = new Node(x);
-            if(head == NULL){
-                head = newNode;
-                temp = newNode;
-                }
-                else{
-                        temp->next = newNode;
-                        temp = temp->next;
-                    }
-                    cin>>x;
-            }
-            return head;
-        }
-    void Display(Node* head){
-            while(head!=NULL){
-                cout<<head->data<<" ";
-                head = head->next;
-                }
-                cout<<endl;
-            }
-            
-    void Insert(int x,int indii,Node* head){
-        int count = 1;
-        Node*temp = head;
-        Node* newNode = new Node(x);
-        while(count<indii){
-            temp = temp->next;
-            count++;
-            }
-            newNode->next = temp->next;
-            temp->next = newNode;
-        }
-        
-        void Delete(int indii,Node* head){
-            Node*temp = head;
-            int curr = 1;
-            while(curr<indii){
-                curr++;
-                temp = temp->next;
-                }
-                Node* prev = temp->next;
-                temp->next = prev->next;
-            }
-            
-            int Length(Node* head,int count){
-                if(head == NULL) return 0;
-               return 1+Length(head->next,count++);
-                }
-                
-                void InsertRecur(int x,int indii,Node* head,int curr){
-                    if(head == NULL) return;
-                    if(curr == indii-1){
-                        Node* newNode = new Node(x);
-                        newNode->next = head->next;
-                        head->next = newNode;
-                        return;
-                        }
-                        else InsertRecur(x,indii,head->next,curr+1);
-                    }
-                    
-                    void DeleteRecur(int indii,Node* head,int curr){
-                        if(head==NULL) return;
-                        if(curr == indii-1){
-                            Node* prev=head->next;
-                            head->next = prev->next;
-                            }
-                            else DeleteRecur(indii,head->next,curr+1);
-                        }
-                        
-                        int Check_x(int x,Node* head){
-                            int curr = 0;
-                            while(head!=NULL){
-                                if(head->data == x){
-                                    break;
-                                    }
-                                    else curr = curr+1;
-                                    head = head->next;
-                                }
-                                if(head == NULL) return -1;
-                                else return curr;
-                            }
-                            
-            Node* Append(int number,Node* head){
-                int curr = 1;
-                Node* tail = head;
-                while(tail->next!=NULL) tail = tail->next;
-                Node *temp = head;
-                while(curr!=number-1){
-                    temp = temp->next;
-                    curr++;
-                    }
-                    tail->next = head;
-                    head = temp->next;
-                    temp->next = NULL;
-                    return head;
-                }
-                
-               void removeDupli(Node* head){
-                    if(head == NULL || head->next == NULL) return;
-                    Node *first = head,*second = head->next;
-                    while(second!=NULL){
-                        if(first->data == second->data){
-                            first->next = second->next;
-                            second = second->next;
-                            }
-                            else{
-                                first = first->next;
-                                second = second->next;
-                                }
-                        }
-                    }
-                    
-                        void reverseLL(Node* head){
-                        if(head == NULL) return;
-                        reverseLL(head->next);
-                        cout<<head->data<<" ";
-                        }
-                        
-                        int checkMid(Node*head){
-                            Node* slow=head;
-                            Node* fast = head->next;
-                            while(fast!=NULL){
-                                if(fast->next != NULL) fast = fast->next->next;
-                                else if(fast->next == NULL) break;
-                                slow = slow->next;
-                                }
-                                int ans = slow->data;
-                                return ans;
-                            }
-                            
-                            Node* mergeLL(Node* h1,Node* h2){
-                                Node* head=NULL;
-                                Node* temp;
-                                while(h1 != NULL && h2 != NULL){
-                                    Node* newNode;
-                                    if(h1->data<=h2->data){
-                                        newNode = new Node(h1->data);
-                                        h1 = h1->next;
-                                        }
-                                        else{
-                                            newNode = new Node(h2->data);
-                                            h2 = h2->next;
-                                            }
-                                            if(head == NULL){
-                                                head = newNode;
-                                                temp = newNode;
-                                                }
-                                                else{
-                                                    temp->next = newNode;
-                                                    temp = temp->next;
-                                                    }
-                                    }
-                                    while(h1 != NULL){
-                                        Node* newNode = new Node(h1->data);
-                                        temp->next = newNode;
-                                        temp = temp->next;
-                                        h1 = h1->next;
-                                        }
-                                        while(h2 != NULL){
-                                        Node* newNode = new Node(h2->data);
-                                        temp->next = newNode;
-                                        temp = temp->next;
-                                        h2 = h2->next;
-                                        }
-                                        return head;
-                                }
-                                
-                                Node* mergeSort(Node* h){
-                                    
-                                    }
-    int main(){
-        Node* h = takeInput();
-        Node* head = mergeSort(h);
+int data;
+Node* next;
+
+Node(int x){
+this->data = x;
+this->next = NULL;
+}
+};
+Node* takeInput(){
+int x;
+cin>>x;
+Node *head=NULL;
+Node *temp;
+while(x!=-1){
+Node* newNode = new Node(x);
+if(head == NULL){
+head = newNode;
+temp = newNode;
+}
+else{
+temp->next = newNode;
+temp = temp->next;
+}
+cin>>x;
+}
+return head;
+}
+void Display(Node* head){
+while(head!=NULL){
+cout<<head->data<<" ";
+head = head->next;
+}
+cout<<endl;
+}
+
+void Insert(int x,int indii,Node* head){
+int count = 1;
+Node*temp = head;
+Node* newNode = new Node(x);
+while(count<indii){
+temp = temp->next;
+count++;
+}
+newNode->next = temp->next;
+temp->next = newNode;
+}
+
+void Delete(int indii,Node* head){
+Node*temp = head;
+int curr = 1;
+while(curr<indii){
+curr++;
+temp = temp->next;
+}
+Node* prev = temp->next;
+temp->next = prev->next;
+}
+
+int Length(Node* head,int count){
+if(head == NULL) return 0;
+return 1+Length(head->next,count++);
+}
+
+void InsertRecur(int x,int indii,Node* head,int curr){
+if(head == NULL) return;
+if(curr == indii-1){
+Node* newNode = new Node(x);
+newNode->next = head->next;
+head->next = newNode;
+return;
+}
+else InsertRecur(x,indii,head->next,curr+1);
+}
+
+void DeleteRecur(int indii,Node* head,int curr){
+if(head==NULL) return;
+if(curr == indii-1){
+Node* prev=head->next;
+head->next = prev->next;
+}
+else DeleteRecur(indii,head->next,curr+1);
+}
+
+int Check_x(int x,Node* head){
+int curr = 0;
+while(head!=NULL){
+if(head->data == x){
+break;
+}
+else curr = curr+1;
+head = head->next;
+}
+if(head == NULL) return -1;
+else return curr;
+}
+
+Node* Append(int number,Node* head){
+int curr = 1;
+Node* tail = head;
+while(tail->next!=NULL) tail = tail->next;
+Node *temp = head;
+while(curr!=number-1){
+temp = temp->next;
+curr++;
+}
+tail->next = head;
+head = temp->next;
+temp->next = NULL;
+return head;
+}
+
+void removeDupli(Node* head){
+if(head == NULL || head->next == NULL) return;
+Node *first = head,*second = head->next;
+while(second!=NULL){
+if(first->data == second->data){
+first->next = second->next;
+second = second->next;
+}
+else{
+first = first->next;
+second = second->next;
+}
+}
+}
+
+void reverseLL(Node* head){
+if(head == NULL) return;
+reverseLL(head->next);
+cout<<head->data<<" ";
+}
+
+int checkMid(Node*head){
+Node* slow=head;
+Node* fast = head->next;
+while(fast!=NULL){
+if(fast->next != NULL) fast = fast->next->next;
+else if(fast->next == NULL) break;
+slow = slow->next;
+}
+int ans = slow->data;
+return ans;
+}
+
+Node* mergeLL(Node* h1,Node* h2){
+Node* head=NULL;
+Node* temp;
+while(h1 != NULL && h2 != NULL){
+Node* newNode;
+if(h1->data<=h2->data){
+newNode = new Node(h1->data);
+h1 = h1->next;
+}
+else{
+newNode = new Node(h2->data);
+h2 = h2->next;
+}
+if(head == NULL){
+head = newNode;
+temp = newNode;
+}
+else{
+temp->next = newNode;
+temp = temp->next;
+}
+}
+while(h1 != NULL){
+Node* newNode = new Node(h1->data);
+temp->next = newNode;
+temp = temp->next;
+h1 = h1->next;
+}
+while(h2 != NULL){
+Node* newNode = new Node(h2->data);
+temp->next = newNode;
+temp = temp->next;
+h2 = h2->next;
+}
+return head;
+}
+
+Node* mergeSort(Node* h){
+
+}
+int main(){
+Node* h = takeInput();
+Node* head = mergeSort(h);
 //        Node* h2 = takeInput();
 //        Node *head = mergeLL(h1,h2);
 //        Display(head);
@@ -216,5 +216,5 @@ public:
 //        int ans = Check_x(x,head);
 //        if(ans == -1) cout<<"ELEMENT NOT FOUND"<<endl;
 //        else cout<<"Element found at : "<<ans<<endl;
-        return 0;
-        }
+return 0;
+}
