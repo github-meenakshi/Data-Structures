@@ -13,10 +13,10 @@ this->next = NULL;
 };
 
 class Pair{
-public:
-Node* head;
-Node* tail;
-};
+    public:
+    Node* head;
+    Node* tail;
+    };
 Node* takeInput(){
 int x;
 cin>>x;
@@ -60,29 +60,39 @@ head->next = NULL;
 return smallAns;
 }
 
+//Efficient Way of Reversing a LinkedList
+Node* reverseLL_Best(Node* head){
+    if(head == NULL || head->next == NULL) return head;
+    Node* smallAns = reverseLL_Best(head->next);
+    Node* tail = head->next;
+    tail->next = head;
+    head->next = NULL;
+    return smallAns;
+    }
+
 //This function will return the Reverse LinkedList in better Time Complexity
 Pair reverseLL_2(Node* head){
-if(head == NULL || head->next == NULL){
-Pair ans;
-ans.head = head;
-ans.tail = head;
-return ans;
-}
-Pair smallAns = reverseLL_2(head->next);
-smallAns.tail->next = head;
-head->next = NULL;
-Pair ans;
-ans.head = smallAns.head;
-ans.tail = head;
-return ans;
-}
+    if(head == NULL || head->next == NULL){
+        Pair ans;
+        ans.head = head;
+        ans.tail = head;
+        return ans;
+        }
+        Pair smallAns = reverseLL_2(head->next);
+        smallAns.tail->next = head;
+        head->next = NULL;
+        Pair ans;
+        ans.head = smallAns.head;
+        ans.tail = head;
+        return ans;
+    }
 //Reverse calling function    
 Node* reverseLL_Better(Node* head){
-return reverseLL_2(head).head;
-}
+    return reverseLL_2(head).head;
+    }
 
 int main(){
-Node* head = takeInput();
-Node* h = reverseLL_Better(head);
-Display(h);
-}
+    Node* head = takeInput();
+    Node* h = reverseLL_Best(head);
+    Display(h);
+    }
