@@ -6,10 +6,16 @@ public:
 int data;
 Node* next;
 
-Node(int x){
+Node(int x){    
 this->data = x;
 this->next = NULL;
 }
+};
+
+class Pair{
+public:
+Node* head;
+Node* tail;
 };
 Node* takeInput(){
 int x;
@@ -39,6 +45,7 @@ head = head->next;
 cout<<endl;
 }
 
+//This Function is Reversing the LinkedList in O(n^2)
 Node* reverseLL(Node* head){
 if(head == NULL || head->next == NULL) return head;
 
@@ -53,8 +60,29 @@ head->next = NULL;
 return smallAns;
 }
 
+//This function will return the Reverse LinkedList in better Time Complexity
+Pair reverseLL_2(Node* head){
+if(head == NULL || head->next == NULL){
+Pair ans;
+ans.head = head;
+ans.tail = head;
+return ans;
+}
+Pair smallAns = reverseLL_2(head->next);
+smallAns.tail->next = head;
+head->next = NULL;
+Pair ans;
+ans.head = smallAns.head;
+ans.tail = head;
+return ans;
+}
+//Reverse calling function    
+Node* reverseLL_Better(Node* head){
+return reverseLL_2(head).head;
+}
+
 int main(){
-    Node* head = takeInput();
-    Node* h = reverseLL(head);
-    Display(h);
-    }
+Node* head = takeInput();
+Node* h = reverseLL_Better(head);
+Display(h);
+}
