@@ -1,0 +1,19 @@
+//Function to remove duplicates from sorted linked list.
+Node *removeDuplicates(Node *head)
+{
+Node* curr = head->next;
+Node* prev = head;
+while(curr!=NULL){
+if(prev->data == curr->data){
+prev->next = curr->next;
+Node* temp = curr;
+curr = curr->next;
+temp->next = NULL;
+}
+else{
+curr = curr->next;
+prev = prev->next;    
+}
+}
+return head;
+}
