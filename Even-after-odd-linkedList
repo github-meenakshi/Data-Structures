@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+class Node{
+public:
+    int data;
+    Node* next;
+    
+Node(int x){
+    this->data = x;
+    this->next = NULL;
+    }
+    };
+    
+Node* makeLL(){
+int x;
+cin>>x;
+Node* head;
+Node* tail;
+while(x!=-1){
+Node* newNode = new Node(x);
+if(head == NULL){
+head = newNode;
+tail = newNode;
+}
+else{
+tail->next = newNode;
+tail = tail->next;
+}
+cin>>x;
+}
+return head;
+}
+
+void Display(Node* head){
+while(head!=NULL){
+cout<<head->data<<" ";
+head = head->next;
+}
+cout<<endl;
+}
+
+Node* EvenAfterOdd(Node* head){
+Node* oddHead=NULL;
+Node* evenHead = NULL;
+Node* oddTail;
+Node* evenTail;
+while(head!=NULL){
+int curr = head->data;
+Node* newNode = new Node(curr);
+if(curr%2 == 0){
+if(evenHead == NULL){
+evenHead = newNode;
+evenTail = newNode;
+}
+else{
+    evenTail->next = newNode;
+    evenTail = evenTail->next;
+    }
+}
+else{
+if(oddHead == NULL){
+oddHead = newNode;
+oddTail = newNode;
+}
+else{
+oddTail->next = newNode;
+oddTail = oddTail->next;
+}
+}
+head = head->next;
+}
+if(oddHead == NULL) return evenHead;
+else if(evenHead == NULL) return oddHead;
+else if(evenHead!=NULL && oddHead!=NULL){
+oddTail->next = evenHead;
+return oddHead;
+}
+}
+
+int main(){
+Node* head = makeLL();
+Node* h = EvenAfterOdd(head);
+Display(h);
+}
