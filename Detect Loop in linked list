@@ -1,0 +1,15 @@
+//Function to check if the linked list has a loop.
+    bool detectLoop(Node* head)
+    {
+    bool flag = true;    
+    while(head!=NULL){
+    if(head->data == -1){
+    flag = false;
+    break;
+    } 
+    head->data = -1;
+    head = head->next;
+    }
+    if(flag == false) return true;
+    else return false;
+    }
