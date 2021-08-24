@@ -1,0 +1,24 @@
+//Function to remove duplicates from unsorted linked list.
+    Node * removeDuplicates( Node *head) 
+    {
+     set<int> st;
+     Node* curr = head->next;
+     Node* prev = head;
+     st.insert(head->data);
+     while(curr!=NULL){
+     int ele = curr->data;
+     if(st.find(ele)!=st.end()){
+     prev->next = curr->next;
+     Node* temp = curr;
+     curr = curr->next;
+    //  temp->next = NULL;
+    delete temp;
+     }
+     else{
+     st.insert(ele);
+     prev = prev->next;
+     curr = curr->next;
+     }
+     }
+     return head;
+    }
