@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+class Node{
+public:
+int data;
+Node* next;
+
+Node(int x){
+this->data = x;
+this->next = NULL;
+}
+};
+
+Node* makeLL(){
+int x;
+cin>>x;
+Node* head;
+Node* tail;
+while(x!=-1){
+Node* newNode = new Node(x);
+if(head == NULL){
+head = newNode;
+tail = newNode;
+}
+else{
+tail->next = newNode;
+tail = tail->next;
+}
+cin>>x;
+}
+return head;
+}
+
+void Display(Node* head){
+while(head!=NULL){
+cout<<head->data<<" ";
+head = head->next;
+}
+cout<<endl;
+}
+
+//Function for Reversing LL
+Node* reverseIterative(Node* head){
+Node* curr = head;
+Node* prev = NULL;
+
+while(curr!=NULL){
+Node* next = curr->next;
+curr->next=prev;
+prev = curr;
+curr = next;
+}
+return prev;
+}
+
+//This function will add one to the reversed Linked list and return head of it
+Node* add(Node* head){
+Node* curr = head;
+int count = 1,times = 0;
+while(curr->next!=NULL){
+int ele = curr->data;
+if(ele == 9 && count == 1){
+curr->data=0;
+}
+else if(ele!=9 && count == 1){
+curr->data = ele+1;
+count = 0;
+}
+curr = curr->next;
+}
+if(count == 1){
+int ele = curr->data;
+if(ele<9){
+ele+=1;
+curr->data = ele;
+}
+else{
+curr->data = 0;
+Node* newNode = new Node(1);
+curr->next = newNode;
+}
+}
+
+return head;
+}
+
+//This function will add one to the Linked List representing a number
+Node* addOne(Node* head){
+Node* h = reverseIterative(head);
+Node* mh = add(h);
+Node* nh = reverseIterative(mh);
+return nh;
+}
+
+int main(){
+Node* head = makeLL();
+Node* h = addOne(head);
+Display(h);
+return 0;
+}
