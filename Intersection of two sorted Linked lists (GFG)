@@ -1,0 +1,26 @@
+//Here head1 represents the head of 1st LinkedList and head2 represents head of 2nd LinkedList
+Node* findIntersection(Node* head1, Node* head2)
+{
+Node* head = NULL;
+Node* curr;    
+while(head1!=NULL && head2!=NULL){
+int ele1 = head1->data;
+int ele2 = head2->data;
+if(ele1<ele2) head1 = head1->next;    
+else if(ele1>ele2) head2 = head2->next;
+else if(ele1 == ele2){
+Node* newNode = new Node(ele1);
+if(head == NULL){
+head = newNode;
+curr = newNode;
+}
+else{
+curr->next = newNode;
+curr = curr->next;
+}
+head1 = head1->next;
+head2 = head2->next;
+}
+}
+return head;
+}
