@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+class StackUsingArray{
+    int *data;
+    int curr_index;
+    int capacity;
+    
+public:
+    //Constructor that takes size of an Stack (array) as an argument
+    StackUsingArray(int totalSize){
+        data = new int[totalSize];
+        curr_index = 0;
+        capacity = totalSize;
+        }
+    //Function that return true if Stack is Empty
+    int isEmpty(){
+        if(curr_index == 0) return true;
+        else return false;
+        }
+    //Function to get the size of an Stack
+    int sizeOfStack(){
+        return curr_index+1;
+        }
+     //Function that push the new Element in a Stack
+     int push(int ele){
+         if(curr_index == capacity){
+             cout<<"Stack is Empty"<<endl;
+             return 0;
+             }
+         data[curr_index] = ele;
+         curr_index++;
+         }
+       //Function that pop the topmost element of the Stack and return its values
+       int pop(){
+           curr_index--;
+           return data[curr_index];
+           } 
+        //Function that return the value of topmost value of Stack
+        int top(){
+            if(isEmpty()){
+                cout<<"Stack is Empty"<<endl;
+                return 0;
+                }
+                return data[curr_index];
+            }  
+    };
+    
+    int main(){
+        StackUsingArray s(5);
+        s.push(1);
+        s.push(2);
+        s.push(3);
+        s.push(4);
+        s.push(5);
+        cout<<s.pop()<<endl;
+        cout<<s.top()<<endl;
+        cout<<s.isEmpty()<<endl;
+        cout<<s.sizeOfStack()<<endl;
+        return 0;
+        }
+    
