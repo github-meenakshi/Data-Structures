@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+class DynamicStack{
+    int *data;
+    int currIndex;
+    int capacity;
+    
+public:
+    DynamicStack(){
+        data = new int[4];
+        currIndex = 0;
+        capacity = 4;
+        }
+        //This function will check if Stack is Empty or not
+        bool isEmpty(){
+            if(currIndex == 0) return true;
+            else return false;
+            }
+            
+            //This function will return the size of Stack
+           int sizeStack(){
+            return currIndex;
+            }
+            
+            //This function will insert new element in Stack
+            void push(int x){
+                if(currIndex == capacity){
+                    int *newData = new int[2*capacity];
+                    for(int i = 0;i<capacity;i++){
+                        newData[i] = data[i];
+                        }
+                        delete []data;
+                        data = newData;
+                        capacity = 2*capacity;
+                    }
+                    data[currIndex] = x;
+                    cout<<x<<" inserted in Stack"<<endl;
+                    currIndex++;
+                }
+                
+                //This function will pop element from the Stack
+                    void pop(){
+                    int tbd;
+                    if(currIndex == 0) return ;
+                    else{
+                        currIndex--;
+                        tbd = data[currIndex];
+                        cout<<tbd<<" popped out from Stack"<<endl;
+                        }
+                    }
+    };
+int main(){
+    DynamicStack s;
+    s.push(3);
+    s.push(7);
+    s.push(5);
+    s.push(4);
+    s.push(3);
+    cout<<s.isEmpty()<<endl;
+    }
