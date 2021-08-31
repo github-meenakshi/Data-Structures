@@ -1,0 +1,27 @@
+//Function to check if brackets are balanced or not.
+    bool ispar(string s)
+    {
+    stack<int> st;
+    bool flag = true;
+    for(int i = 0;i<s.length();i++){
+    int curr = s[i];
+    if(curr == 40 || curr == 91 || curr == 123){
+    st.push(curr);    
+    }
+    else{    
+    if(st.size() == 0){
+    flag = false;
+    break;
+    }    
+    if(curr == 41 && st.top() == 40) st.pop();
+    else if(curr == 93 && st.top() == 91) st.pop();
+    else if(curr == 125 && st.top() == 123) st.pop();
+    else{
+    flag = false;
+    break;
+    }
+    }
+    }
+    if(st.size()>0) flag=false;
+    return flag;
+    }
