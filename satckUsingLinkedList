@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+template<typename T>
+class Node{
+    public:
+    T data;
+    Node<T>* next;
+    
+    Node(T x){
+        this->data = x;
+        next = NULL;
+        }
+    };
+    
+template<typename T>
+class Stack{
+    T x;
+    Node<T>* head;
+    int size;
+    public:
+    Stack(){
+        head = NULL;
+        size = 0;
+        }
+    void push(T x){
+        Node<T>* newNode = new Node(x);
+        if(head == NULL){
+            head = newNode;
+            }
+            else{
+                newNode->next = head;
+                head = newNode;
+                }
+                size++;
+                cout<<x<<" element pushed in a Stack"<<endl;
+        }
+        
+        void pop(){
+            T tbp;
+            if(head == NULL) cout<<"Stack is Empty"<<endl;
+            else{
+                tbp = head->data;
+                Node<T>* temp = head;
+                head = head->next;
+                temp->next = NULL;
+                size--;
+                delete temp;
+                cout<<tbp<<" popped out of Stack"<<endl;
+                }
+            }
+            
+            T top(){
+                return head->data;
+                }
+            bool isEmpty(){
+                if(size == 0) return true;
+                else return false;
+                }
+                
+                int sizeStack(){
+                    return size;
+                    }
+    };
+    
+    int main(){
+        Stack<int> s1;
+        s1.push(10);
+        s1.push(20);
+        s1.push(30);
+        s1.pop();
+        cout<<s1.isEmpty()<<endl;
+        cout<<s1.sizeStack()<<endl;
+        cout<<s1.top()<<endl;
+        return 0;
+        }
