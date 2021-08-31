@@ -1,0 +1,69 @@
+#include <iostream>
+using namespace std;
+template<typename T>
+class queue{
+    T* data;
+    int nextindex;
+    int firstIndex;
+    int capacity;
+    int size;
+public:
+    queue(int s){
+        data = new T[s];
+        nextindex = 0;
+        firstIndex = -1;
+        capacity = s;
+        size = 0;
+        }
+        
+        void enqueue(T x){
+            if(size == capacity){
+                cout<<"Queue is Full"<<endl;
+                return;
+                }
+                if(size == 0) firstIndex = 0;
+            data[nextindex++] = x;
+            nextindex = (nextindex+1)%capacity;
+            size++;
+            cout<<x<<" inserted in queue"<<endl;
+            }
+            
+            void dequeue(){
+                if(size == 0){
+                    cout<<"Queue is Empty"<<endl;
+                    return;
+                    }
+                    cout<<data[firstIndex]<<" popped out from queue"<<endl;
+                    firstIndex++;
+                    firstIndex = (firstIndex+1)%capacity;
+                    size--;
+                    if(size == 0){
+                    firstIndex = -1;
+                    nextindex = 0;    
+                    }
+                }
+                
+                int getSize(){
+                    return size;
+                    }
+                    
+                    T front(){
+                        if(size == 0){
+                            cout<<"Queue is Empty"<<endl;
+                            return 0;
+                            }
+                            return data[firstIndex];
+                        }
+    };
+int main(){
+    queue<int> q(5);
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+    q.enqueue(4);
+    q.enqueue(5);
+    q.enqueue(6);
+    q.dequeue();
+    
+    cout<<q.front()<<endl;
+    }
