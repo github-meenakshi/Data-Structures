@@ -92,7 +92,8 @@ Node* nh = reverseIterative(mh);
 return nh;
 }
 
-int main(){
+int main()
+{
 Node* head = makeLL();
 Node* h = addOne(head);
 Display(h);
