@@ -1,0 +1,42 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+using namespace std;
+//DFS function
+void dfsGraph(int node,vector<int> &visited,vector<int> list[ ]){
+    visited[node] = 1;
+    cout<<node<<" ";
+    for(int i = 0;i<list[node].size();i++){
+        int ele = list[node][i];
+        if(!visited[ele]){
+            dfsGraph(ele,visited,list); //will go till depth of the container of Graph
+            }
+        }
+    }
+//DFS Traversal -- Adjajency List
+void dfs(vector<int> list[ ],vector<int> &visited,int n){
+    for(int i = 1;i<=n;i++){
+        if(!visited[i]){
+            dfsGraph(i,visited,list);
+            }
+        }
+        cout<<endl;
+        
+        return;
+    }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> list[n+1];
+    for(int i = 1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        list[v].push_back(u);
+        }
+        vector<int> visited(n+1,0);
+        dfs(list,visited,n);
+        
+        return 0;
+    }
