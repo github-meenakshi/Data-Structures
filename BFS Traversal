@@ -1,0 +1,44 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+using namespace std;
+//BFS Traversal -- Adjajency List
+void bfs(vector<int> list[ ],vector<int> visited,int n){
+    for(int i = 1;i<=n;i++){
+        if(!visited[i]){
+            queue<int> q;
+            q.push(i);
+            visited[i] = 1;
+            while(!q.empty()){
+                int ele = q.front();
+                q.pop();
+                cout<<ele<<" ";
+                    for(int a = 0;a<list[ele].size();a++){
+                        int curr = list[ele][a];
+                        if(!visited[curr]){
+                            visited[curr] = 1;
+                            q.push(curr);
+                            }
+                        }
+                }
+            }
+        }
+        cout<<endl;
+        return;
+    }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> list[n+1];
+    for(int i = 1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        list[v].push_back(u);
+        }
+        vector<int> visited(n+1,0);
+        bfs(list,visited,n);
+        
+        return 0;
+    }
