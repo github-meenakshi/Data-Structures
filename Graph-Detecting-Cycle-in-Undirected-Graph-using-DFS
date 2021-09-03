@@ -1,0 +1,44 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+using namespace std;
+//Detecting Cycles In Undirected Graph using Depth First Traversal
+bool cycleChecker(int node,int par,vector<int> list[ ],vector<int> &visited){
+    visited[node] = 1;
+    
+    for(int i = 0;i<list[node].size();i++){
+        int ele = list[node][i]; // accesing adjacent nodes to the current element.
+        if(!visited[ele]){
+            if(cycleChecker(ele,node,list,visited)) return true; //if any call finds a cycle , whole function will return true
+            }
+            else if(ele!=par) return true; //if node is visited and it is not the previous element , return true as we founded a cycle
+        }
+        
+        return false;
+    }
+bool dfs(vector<int> list[ ],vector<int> &visited,int n){
+    for(int i = 1;i<=n;i++){
+        if(!visited[i]){     //each time if condition is passed that means we will traverse to the new component.
+            if(cycleChecker(i,-1,list,visited)) return true;
+            }
+        }
+        return false;
+    }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> list[n+1];
+    for(int i = 1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        list[v].push_back(u);
+        }
+        vector<int> visited(n+1,0);
+        bool ans = dfs(list,visited,n);
+        if(ans == true) cout<<"Graph got a cycle"<<endl;
+        else cout<<"Graph don't have a cycle"<<endl;
+        
+        return 0;
+    }
