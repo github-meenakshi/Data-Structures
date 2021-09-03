@@ -1,0 +1,49 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <cstring>
+using namespace std;
+//Return all connected components in the graph 
+vector<int> dfs(int node,vector<int> list[ ],vector<int> &visited,vector<int> &store){
+    visited[node] = 1;
+    store.push_back(node);
+    
+    for(int i = 0;i<list[node].size();i++){
+        int ele = list[node][i];
+        if(!visited[ele]){
+            dfs(ele,list,visited,store);
+            }
+        }
+        
+        return store;
+    }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> list[n+1];
+    for(int i = 1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        list[v].push_back(u);
+        }
+        vector<vector<int> > ans;
+        vector<int> visited(n+1,0);
+        for(int i = 0;i<n;i++){
+            if(!visited[i]){
+                vector<int> store;
+                vector<int> curr = dfs(i,list,visited,store);
+                ans.push_back(curr);
+                }
+            }
+            for(int i = 0;i<ans.size();i++){
+                cout<<"< ";
+                for(int j = 0;j<ans[i].size();j++){
+                    cout<<ans[i][j]<<" ";
+                    }
+                    cout<<" >";
+                    cout<<endl;
+                }
+        return 0;
+    }
