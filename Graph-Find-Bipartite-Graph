@@ -1,0 +1,27 @@
+     //will return true/false based on if graph is bipartite is or not
+    bool bipartite(int node,int par,vector<int> list[ ],vector<int> &visited){
+    if(par == -1) visited[node] = 1;
+    
+    for(int i = 0;i<list[node].size();i++){
+        int ele = list[node][i];
+        if(visited[ele] == -1){
+         visited[ele] = 1-visited[node];    
+         if(!bipartite(ele,node,list,visited)) return false;
+        }
+         else if(visited[ele] == visited[node]) return false;
+        }
+        
+        return true;
+    }
+  //caller function
+	bool isBipartite(int V, vector<int>adj[]){
+	    vector<int> visited(V,-1);
+	    for(int i = 0;i < V;i++){
+	        if(visited[i] == -1){
+	            if(!bipartite(i,-1,adj,visited)){
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
+	}
