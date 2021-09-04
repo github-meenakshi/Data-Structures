@@ -1,0 +1,55 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <cstring>
+using namespace std;
+void topoSort(int node,vector<int> list[ ],vector<int> &visited,vector<int> &vec){
+    visited[node] = 1;
+    
+    for(int i = 0;i<list[node].size();i++){
+        int ele = list[node][i];
+        if(!visited[ele]){
+            topoSort(ele,list,visited,vec);
+            }
+        }
+        vec.push_back(node);
+        return;
+    }
+    
+void dfs(int n,vector<int> list[ ]){
+    vector<int> visited(n+1,0);
+    vector<int> vec;
+    for(int i = 0;i<n;i++){
+        if(!visited[i]){
+            topoSort(i,list,visited,vec);
+            }
+        }
+        return;
+    }
+    
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> list[n+1];
+    for(int i = 1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        //next line will be included when graph is undirected
+//        list[v].push_back(u);
+        }
+        //calling dfs
+        dfs(n,list);
+        
+        cout<<"Topological Sort of Graph is : ";
+        //I just collected the topo sort in the vector in the reverse order , 
+        //so now need to traverse in a reverse order to print the topo sort
+        auto it = vec.end();
+        it--;
+        for(;it!=vec.begin();it--){
+            cout<<*it<<" ";
+            }
+            cout<<vec[0]<<endl;
+        return 0;
+}
