@@ -1,0 +1,53 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <cstring>
+using namespace std;
+//Topological Sort can be applied on DAG(Directed Acyclic Graph)
+//KAHN'S Algorithm
+vector<int> topoSort(int n,vector<int> list[ ]){
+    vector<int> indegree(n,0);
+    queue<int> q;
+    for(int i = 0;i<n;i++){
+        for(int j = 0;j<list[i].size();j++){
+            int ele = list[i][j];
+            indegree[ele]++;
+            }
+        }
+        
+        for(int i = 0;i<n;i++){
+            if(indegree[i] == 0) q.push(i);
+            }
+            vector<int> topo;
+            while(!q.empty()){
+                int node = q.front();
+                q.pop();
+                 topo.push_back(node);
+                for(int i = 0;i<list[node].size();i++){
+                    int ele = list[node][i];
+                    indegree[ele]--;
+                    if(indegree[ele] == 0) q.push(ele);
+                    }
+                }
+                
+                return topo;
+    }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> list[n+1];
+    for(int i = 1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        //next line will be included when graph is undirected
+//        list[v].push_back(u);
+        }
+        //calling dfs
+        vector<int> topo = topoSort(n,list);
+        for(auto it : topo) cout<<it<<" ";
+        cout<<endl;
+        
+        return 0;
+}
