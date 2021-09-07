@@ -1,0 +1,53 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <cstring>
+using namespace std;
+int bfs(int n,vector<int> list[ ],int src,int des){
+    queue<int> q;
+    vector<int> dis(n);
+    for(int i=0;i<n;i++){
+        dis[i] = INT_MAX;
+        }
+        q.push(src);
+        dis[src] = 0;
+        
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+            
+            for(int i = 0;i<list[node].size();i++){
+                int ele = list[node][i];
+                int distance = dis[node]+1;
+                if(distance<dis[ele]){
+                    dis[ele] = distance;
+                    q.push(ele);
+                    }
+                }
+            }
+            
+            return dis[des];
+    }
+    int shortest(int n,vector<int> list[ ],int src,int des){
+        return bfs(n,list,src,des);
+        }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> list[n+1];
+    for(int i = 1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        //next line will be included when graph is undirected
+        list[v].push_back(u);
+        }
+        cout<<"Tell the source and destination"<<endl;
+        int src,des;
+        cin>>src>>des;
+        int shortest_paths = shortest(n,list,src,des);
+        cout<<shortest_paths<<endl;
+        
+        return 0;
+}
