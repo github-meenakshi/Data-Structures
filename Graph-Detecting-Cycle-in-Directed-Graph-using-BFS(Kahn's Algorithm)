@@ -1,0 +1,55 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <cstring>
+using namespace std;
+//Kahn's Algorithm
+//Logic behind using this function is , We will initialize the variable count and at the time when a element will be popped
+//out from the queue , we will update that count variable because that element can be included in the topo sort if that 
+//exist . So at the end if topo sort exists (which only occurs when the graph is DAG), number of count will be equal to 
+// the number of elements in list proving that there is no cycle in the graph.
+bool bfs(int n,vector<int> list[ ]){
+    vector<int> indegree(n,0);
+    queue<int> q;
+    for(int i = 0;i<n;i++){
+        for(int j = 0;j<list[i].size();j++){
+            int ele=list[i][j];
+            indegree[ele]++;
+            }
+        }
+        for(int i = 0;i<n;i++){
+            if(indegree[i] == 0) q.push(i);
+            }
+            int count = 0;
+            while(!q.empty()){
+                int node = q.front();
+                q.pop();
+                count++;
+                
+                for(int i = 0;i<list[node].size();i++){
+                    int ele = list[node][i];
+                    indegree[ele]--;
+                    if(indegree[ele] == 0) q.push(ele);
+                    }
+                }
+                
+                if(count == n) return true;
+                else return false;
+    }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> list[n+1];
+    for(int i = 1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        }
+        bool ans = bfs(n,list);
+        
+        if(ans == false) cout<<"Cycle Detected"<<endl;
+        else cout<<"No Cycle Detected"<<endl;
+        
+        return 0;
+    }
