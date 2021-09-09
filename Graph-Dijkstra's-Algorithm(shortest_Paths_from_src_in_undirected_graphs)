@@ -1,0 +1,47 @@
+vector<int> dijkstra(int n,int src,vector<pair<int,int> > list[ ]){
+    set<pair<int,int> > st;
+    st.insert({0,src});
+    vector<int> dis(n);
+    for(int i = 0;i<n;i++){
+        dis[i] = INT_MAX;
+        }
+        dis[src] = 0;
+        
+        while(!st.empty()){
+            auto it1 = st.begin();
+            int prev = it1->second;
+            int dist = it1->first;
+            st.erase(it1);
+            
+            for(auto it : list[prev]){
+                int next = it.first;
+                int nextDis = it.second;
+                
+                if((nextDis+dist) < dis[next]){
+                    dis[next] = nextDis+dist;
+                    st.insert({dis[next],next});
+                    }
+                }
+            }
+            
+            return dis;
+    }
+int main(){
+    int n,m,src;
+    cin>>n>>m;
+    vector<pair<int,int> > list[n];
+    for(int i = 0;i<m;i++){
+        int u,v,wt;
+        cin>>u>>v>>wt;
+        list[u].push_back({v,wt});
+        list[v].push_back({u,wt});
+        }
+        cout<<"Enter the source ? "<<endl;
+        cin>>src;
+        vector<int> dis = dijkstra(n,src,list);
+        
+        for(auto it : dis) cout<<it<<" ";
+        cout<<endl;
+        
+        return 0;
+    }
