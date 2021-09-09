@@ -1,0 +1,58 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <stack>
+#include <cstring>
+using namespace std;
+//Shortest Path from source to destination in DAG
+void topoSort(int node,vector<pair<int,int> > list[ ],vector<int> &visited,stack<int> &st){
+    visited[node] = 1;
+    
+    for(int i = 0;i<list[node].size();i++){
+        pair<int,int> ele = list[node][i];
+       if(!visited[ele.first]) topoSort(ele.first,list,visited,st);
+        }
+        st.push(node);
+    }
+int shortest(int n,vector<pair<int,int> >list[ ],int src,int des){
+    vector<int> visited(n,0);
+    stack<int> st;
+    for(int i = 0;i<n;i++){
+        if(!visited[i]) topoSort(i,list,visited,st);
+        }
+        
+        int dis[n];
+        for(int i = 0;i<n;i++) dis[i] = INT_MAX;
+        dis[src] = 0;
+        
+        while(!st.empty()){
+            int node = st.top();
+            st.pop();
+            
+            if(dis[node]!=INT_MAX){
+                for(int i = 0;i<list[node].size();i++){
+                    pair<int,int> ele = list[node][i];
+                    int distance = dis[node]+ele.second;
+                    if(distance < dis[ele.first]){
+                        dis[ele.first] = distance;
+                        }
+                    }
+                }
+            }
+            
+            for(auto it : dis) cout<<it<<" ";
+            cout<<endl;
+    }
+int main(){
+    int n,m,src,des;
+    cin>>n>>m>>src>>des;
+    vector<pair<int,int> > list[n];
+    
+    for(int i = 0;i<m;i++){
+        int u,v,wt;
+        cin>>u>>v>>wt;
+        list[u].push_back({v,wt});
+        }
+        int ans = shortest(n,list,src,des);
+    }
