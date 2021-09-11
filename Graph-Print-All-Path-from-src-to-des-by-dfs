@@ -1,0 +1,54 @@
+#include <iostream>
+#include <stack>
+#include <queue>
+#include <algorithm>
+#include <set>
+#include <map>
+using namespace std;
+
+//Print all Paths from source to destination in undirected graphs
+void printPath(vector<int> path){
+    for(auto it : path) cout<<it<<" ";
+    cout<<endl;
+    }
+void dfs(int src,int des,int node,vector<int> &visited,vector<int> list[ ],vector<int> path){
+    if(node == des){
+        printPath(path);
+        return;
+        }
+    visited[node] = 1;
+    
+    for(int i = 0;i<list[node].size();i++){
+        int ele=list[node][i];
+        if(!visited[ele]){
+            int len = path.size();
+            path.push_back(ele);
+            dfs(src,des,ele,visited,list,path);
+            path.erase(path.begin()+len,path.end());
+            }
+        }
+        visited[node] = 0;
+        return;
+    }
+void printAll(int src,int des,int n,vector<int> list[ ]){
+    vector<int> visited(n,0);
+    vector<int> path;
+    path.push_back(src);
+    dfs(src,des,src,visited,list,path);
+    }
+int main(){
+    int n,m,src,des;
+    cin>>n>>m;
+    vector<int> list[n];
+    for(int i = 0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        list[v].push_back(u);
+        }
+        
+        cout<<"Enter the destination and source ?"<<endl;
+        cin>>src>>des;
+        
+        printAll(src,des,n,list);
+    }
