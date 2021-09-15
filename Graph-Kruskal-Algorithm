@@ -1,0 +1,57 @@
+#include <iostream>
+#include <map>
+#include <vector>
+using namespace std;
+
+int find(int node,vector<int> &parent){
+    if(parent[node] == node) return node;
+    return parent[node] = find(parent[node],parent);
+    }
+    
+    void unionn(int u,int v,vector<int> &parent,vector<int> &ranks){
+        u =  parent[u];
+        v = parent[v];
+        if(ranks[u]>ranks[v]){
+            parent[v] = u;
+            }
+            else if(ranks[v]>ranks[u]){
+                parent[u] = v;
+                }
+                else{
+                    parent[v] = u;
+                    ranks[u]++;
+                    }
+        }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    multimap<int,pair<int,int> > list;
+    for(int i = 0;i<m;i++){
+        int wt,u,v;
+        cin>>wt>>u>>v;
+        list.insert({wt,{u,v}});
+        }
+        
+        vector<int> parent(n);
+        vector<int> ranks(n,0);
+        for(int i = 0;i<n;i++){
+            parent[i] = i;
+            }
+        
+        vector<pair<int,int> > mst;
+        int cost = 0;
+        for(auto it : list){
+            pair<int,int> ele = it.second;
+            if(find(ele.first,parent)!=find(ele.second,parent)){
+                cost+=it.first;
+                mst.push_back({ele.first,ele.second});
+                unionn(ele.first,ele.second,parent,ranks);
+                }
+            }
+            
+//            for(auto it : parent) cout<<it<<" ";
+//            cout<<endl;
+
+        cout<<cost<<endl;
+        return 0;
+        }
