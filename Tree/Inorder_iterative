@@ -1,0 +1,15 @@
+void iterative_preorder(BinaryTreeNode<int>* root){
+      if(root == NULL) return;
+      stack<BinaryTreeNode<int>* > st;
+      st.push(root);
+      while(!st.empty()){
+          BinaryTreeNode<int>* curr = st.top();
+          st.pop();
+          cout<<curr->data<<" "; 
+          if(curr->right!=NULL) st.push(curr->right);
+          if(curr->left!=NULL) st.push(curr->left);
+          }
+          cout<<endl;
+
+          return;
+      }
