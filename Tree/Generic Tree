@@ -199,6 +199,7 @@ class Treenode{
                                      return ans;
                                  }
                                  
+                                 //In this we used static variables, excluding recursion factor
                                  int largest_node_sum(Treenode<int>* root){
                                      static int maxi = -10000,curr_sum = 0;
                                      for(int i = 0;i<root->children.size();i++){
@@ -212,10 +213,25 @@ class Treenode{
                                              }
                                              return maxi;
                                      }
+                                     
+                                     //this is based on recursion
+                                     int largest_node_sum1(Treenode<int>* root,int sum){
+                                         int curr_sum = 0;
+                                         for(int i = 0;i<root->children.size();i++){
+                                             curr_sum+=root->children[i]->data;
+                                             }
+                                             curr_sum+=root->data;
+                                             sum = max(sum,curr_sum);
+                                             for(int i = 0;i<root->children.size();i++){
+                                                 sum = max(sum,largest_node_sum1(root->children[i],sum));
+//                                                 largest_node_sum1(root->children[i],sum);
+                                                 }
+                                                 return sum;
+                                         }
                  
 int main(){
     Treenode<int>* root = take_inputwise_input();
-    int ans = largest_node_sum(root);
+    int ans = largest_node_sum1(root,0);
     cout<<ans<<endl;
     //1 2 2 3 2 4 5 2 6 7 0 0 1 8 0 0
     DeleteTree(root); //this will delete thw whole tree
