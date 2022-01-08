@@ -228,11 +228,50 @@ class Treenode{
                                                  }
                                                  return sum;
                                          }
+                                         
+                                         //In this function we will use helper class function for returning the maximum sum
+//                                         class pair_node{
+//                                             public:
+//                                             int curr_node;
+//                                             int sum;
+//                                             
+//                                             pair_node(){
+//                                                 sum = 0;
+//                                                 }
+//                                             }
+//                                         pair_node largest_node_sum2(Treenode<int>* root,pair_node p){
+//                                             int curr_sum = root->data;
+//                                             for(int i = 0;i<root->children.size();i++){
+//                                                 curr_sum+=root->children[i]->data;
+//                                                 }
+//                                                 if(curr_sum>p->sum){
+//                                                     p->curr_node = root->data;
+//                                                     p->sum = curr_sum;
+//                                                     }
+//                                                     
+//                                                     for(int i = 0;i<root->children.size();i++){
+//                                                         largest_node_sum2(root->children[i],p);
+//                                                         }
+//                                                         
+//                                                         return p;
+//                                             }
+
+                                    int just_greater_element(Treenode<int> *root,int x,int curr_num){
+                                        if(root->data>x){
+                                            curr_num = min(curr_num,root->data);
+                                            }
+                                            for(int i = 0;i<root->children.size();i++){
+                                                curr_num = just_greater_element(root->children[i],x,curr_num);
+                                                }
+                                                return curr_num;
+                                        }
                  
 int main(){
     Treenode<int>* root = take_inputwise_input();
-    int ans = largest_node_sum1(root,0);
-    cout<<ans<<endl;
+    cout<<"Tell me the number"<<endl;
+    int x;
+    cin>>x;
+    cout<<just_greater_element(root,x,1000000)<<endl;
     //1 2 2 3 2 4 5 2 6 7 0 0 1 8 0 0
     DeleteTree(root); //this will delete thw whole tree
     
