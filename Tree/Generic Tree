@@ -15,7 +15,7 @@ class Treenode{
         }
     };
     
-                         
+                         //taking the input
                          Treenode<int>* take_inputwise_input(){
                              int root_data;
                              cout<<"Enter the root data"<<endl;
@@ -48,6 +48,7 @@ class Treenode{
                              delete root;
                          }
            
+           //print the tree
            void print_tree(Treenode<int>* root){
                if(root == NULL) return; 
                cout<<root->data<<": ";
@@ -60,6 +61,7 @@ class Treenode{
                        }
                }
                
+               //number of nodes
                int numNodes(Treenode<int>* root){
                    int sum = 1;
                    for(int i = 0;i<root->children.size();i++){
@@ -69,6 +71,7 @@ class Treenode{
                        return sum;
                    }
                    
+                   //sum_of_all_nodes
      int sum_of_all_nodes(Treenode<int>* root){
          int sum = root->data;
          for(int i = 0;i<root->children.size();i++){
@@ -78,6 +81,7 @@ class Treenode{
              return sum;
          }
          
+         //max_weight
          int max_weight(Treenode<int>* root){
              static int maxi = -1;
              maxi = max(maxi,root->data);
@@ -92,6 +96,7 @@ class Treenode{
                      return maxi;
              }
              
+             //height of tree
              int height_of_tree(Treenode<int>* root){
                  static int maxi = -1,height = 1;
                  int h = 1;
@@ -172,11 +177,47 @@ class Treenode{
                              }
                              return ans;
                          }
+                         
+                         void print_at_k_level(Treenode<int> * root,int k){
+                             if(root == NULL) return;
+                             if(k == 0) cout<<root->data<<" ";
+                             for(int i = 0;i<root->children.size();i++){
+                                 print_at_k_level(root->children[i],k-1);
+                                 }
+                                 return;
+                             }
+                             
+                             int countLeafNode(Treenode<int>* root){
+                                 if(root->children.size() == 0){
+                                     cout<<"YES"<<endl;
+                                     return 1;
+                                     }
+                                 int ans = 0;
+                                 for(int i = 0;i<root->children.size();i++){
+                                     ans+=countLeafNode(root->children[i]);
+                                     }
+                                     return ans;
+                                 }
+                                 
+                                 int largest_node_sum(Treenode<int>* root){
+                                     static int maxi = -10000,curr_sum = 0;
+                                     for(int i = 0;i<root->children.size();i++){
+                                         curr_sum+=(root->children[i]->data);
+                                         }
+                                         curr_sum+=root->data;
+                                         maxi = max(maxi,curr_sum);
+                                         curr_sum = 0;
+                                         for(int i = 0;i<root->children.size();i++){
+                                             largest_node_sum(root->children[i]);
+                                             }
+                                             return maxi;
+                                     }
                  
 int main(){
     Treenode<int>* root = take_inputwise_input();
-    int ans = heightOfTree(root);
+    int ans = largest_node_sum(root);
     cout<<ans<<endl;
+    //1 2 2 3 2 4 5 2 6 7 0 0 1 8 0 0
     DeleteTree(root); //this will delete thw whole tree
     
      return 0;
